@@ -9,10 +9,18 @@ export default class Movie extends Component {
     };
   }
 
-  componentDidMount() {
+  updateMovie() {
     // change this line to grab the id passed on the URL
-    const id = 1;
+    const id = this.props.match.params.id;
     this.fetchMovie(id);
+  }
+
+  componentDidMount() {
+    this.updateMovie();
+  }
+
+  componentDidUpdate() {
+    this.updateMovie();
   }
 
   fetchMovie = id => {
@@ -61,7 +69,7 @@ export default class Movie extends Component {
             </div>
           ))}
         </div>
-        <div className="save-button">Save</div>
+        <div className="save-button" onClick={(e) => this.props.toggleSavedList(this.state.movie)}>{this.props.isSavedText(this.state.movie)}</div>
       </div>
     );
   }
